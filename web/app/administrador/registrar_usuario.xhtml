@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/includes/template/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="tittle">Administrador || registrar</ui:define>
+    <ui:define name="modulo">Admin</ui:define>
+    <ui:define name="foto_usuario"><img src="#{request.contextPath}/resources/img/user3-128x128.jpg" class="img-circle elevation-2" alt="User Image"/></ui:define>
+    <ui:define name="usuario">Veronica Orozco</ui:define>
+    <ui:define name="menu_main">Administrador</ui:define>
+    <ui:define name="breadcrumbs">
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">
+                <a href="../../index.xhtml">Inicio</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="#">#</a>
+            </li>
+        </ol>
+    </ui:define>
+    <ui:define name="tittle_page"></ui:define>    
+    <ui:define name="content">
+        <h:messages showDetail="true" layout="table" style="padding: 5px; border-radius: 5px; box-shadow: 0px 0px 4px #444444; 
+                    display:block "
+                    errorStyle="background: #ff0000"/>
+        <h:form prependId="false"> 
+            <h3 class="text-center"><b style="color: #CF7D34">REGISTRAR USUARIO</b></h3>
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">NÚMERO DOCUMENTO <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" a:type="number" value="#{usuarioController.nuevoUsuario.id}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">PRIMER NOMBRE <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{usuarioController.nuevoUsuario.nombre1}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">PRIMER APELLIDO <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{usuarioController.nuevoUsuario.apellido1}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">DIRECCIÓN <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{usuarioController.nuevoUsuario.direccion}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">TELÉFONO <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{usuarioController.nuevoUsuario.telefono}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">ROL USUARIO <b style="color: red">*</b></label>
+                        <h:selectOneMenu class="form-control" value="#{usuarioController.nuevoUsuario.rol}">
+                            <f:selectItem itemLabel="Seleccione un rol" itemValue=""/>
+                            <f:selectItems value="#{rolController.roles}" var="rol" itemLabel="#{rol.nombre}"/>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">TIPO DE DOCUMENTO <b style="color: red">*</b></label>
+                        <h:selectOneMenu class="form-control" value="#{usuarioController.nuevoUsuario.tipoDocumento}">
+                            <f:selectItem itemLabel="Seleccione un documento" itemValue=""/>
+                            <f:selectItem itemLabel="Cédula de ciudadanía" itemValue="C.C"/>
+                            <f:selectItem itemLabel="Documento de Extranjería" itemValue="C.E"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">SEGUNDO NOMBRE</label>
+                        <input class="form-control" value="#{usuarioController.nuevoUsuario.nombre2}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">SEGUNDO APELLIDO</label>
+                        <h:inputText class="form-control" value="#{usuarioController.nuevoUsuario.apellido2}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">CORREO ELECTRÓNICO <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" a:type="email" value="#{usuarioController.nuevoUsuario.correo}" required="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">CONTRASEÑA <b style="color: red">*</b></label>
+                        <h:inputSecret class="form-control" value="#{usuarioController.nuevoUsuario.contraseña}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">ESTADO <b style="color: red">*</b></label>
+                        <h:selectOneMenu class="form-control" value="#{usuarioController.nuevoUsuario.estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue=""/>
+                            <f:selectItem itemLabel="activo" itemValue="1"/>
+                            <f:selectItem itemLabel="inactivo" itemValue="2"/>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn text-light" style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000" 
+                   href="#{request.contextPath}/app/administrador/admin_modulo.xhtml">Cancelar
+                </a>&nbsp;
+                <h:commandButton class="btn text-light" style="background-color: #CF7D34; border-bottom-color: #000" 
+                                 value="Registrar" action="#{usuarioController.registrar()}"/>
+            </div>
+        </h:form>
+        <br/><br/>
+        <ui:include src="/WEB-INF/includes/modals/admin/usuario/ver_Info_usuario.xhtml"></ui:include>
+    </ui:define>
+
+</ui:composition>
+

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/includes/template/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="tittle">Ventas || Registrar Orden</ui:define>
+    <ui:define name="modulo">Ventas</ui:define>
+    <ui:define name="foto_usuario"><img src="#{request.contextPath}/resources/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/></ui:define>
+    <ui:define name="usuario">#{usuarioController.usuarioSeleccionado.nombre1} </ui:define>
+    <ui:define name="menu_main">Ventas</ui:define>
+    <ui:define name="opc_menu1">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pedidos1" aria-expanded="false" aria-controls="pedidos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list"></i> Facturas</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="pedidos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#facturas">Facturas Generales</a>
+                <a class="nav-link text-light" href="#">Facturas Canceladas</a>
+                <a class="nav-link text-light" href="#">Facturas Pendientes</a>
+                <a class="nav-link text-light" href="#">Facturas Anuladas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="opc_menu2">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#despachos1" aria-expanded="false" aria-controls="despachos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list-alt"></i> Solicitudes (SCR)</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="despachos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#solicitudes">Solicitudes Generales</a>
+                <a class="nav-link text-light" href="#pedidosModal">Solicitudes Radicadas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="opc_menu3">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#solicitudes1" aria-expanded="false" aria-controls="solicitudes1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fas fa-plus"></i> Orden de Compra Repuesto (OCR)</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="solicitudes1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#">Ordenes Generales</a>
+                <a class="nav-link text-light" href="#" data-toggle="modal">Generar Orden</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="tittle_page"></ui:define>    
+    <ui:define name="content">
+        <h:messages showDetail="true" layout="table" style="padding: 5px; border-radius: 5px; box-shadow: 0px 0px 4px #444444; 
+                    display:block "
+                    errorStyle="background: #ff0000"/>
+        <h:form prependId="false"> 
+            <h3 class="text-center"><b style="color: #CF7D34">REGISTRAR ORDEN</b></h3>
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+                    <!--<div class="form-group">
+                        <label for="message-text" class="col-form-label">ID ORDEN <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" a:type="number" value="#ordenesCompraRepuestoController.nuevaOrden.id}"/>
+                    </div>-->
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">VENDEDOR <b style="color: red">*</b></label>
+                        <h:selectOneMenu class="form-control" value="#{ordenesCompraRepuestoController.nuevaOrden.vendedor}">
+                            <f:selectItem itemLabel="Seleccione ID Vendedor" itemValue=""/>
+                            <f:selectItems value="#{vendedorController.vendedores}" 
+                                           var="vnddr" 
+                                           itemLabel="#{vnddr.usuario.nombre1} #{vnddr.usuario.apellido1}&nbsp;&nbsp; #{vnddr.id}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">SOLICITUD <b style="color: red">*</b></label>
+                        <h:selectOneMenu class="form-control" value="#{ordenesCompraRepuestoController.nuevaOrden.solicitudCompraRepuesto}">
+                            <f:selectItem itemLabel="Seleccione ID Vendedor" itemValue=""/>
+                            <f:selectItems value="#{solicitudComprarepuestoController.solicitudesCR}" 
+                                           var="scr" 
+                                           itemLabel="#{scr.id}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">FECHA <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" a:type="date" value="#{ordenesCompraRepuestoController.nuevaOrden.fecha}">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </h:inputText>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">CANTIDAD <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{ordenesCompraRepuestoController.nuevaOrden.cantidad}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">VALOR/U <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{ordenesCompraRepuestoController.nuevaOrden.valorUnitario}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">VALOR IVA <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{ordenesCompraRepuestoController.nuevaOrden.valorIva}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">VALOR TOTAL <b style="color: red">*</b></label>
+                        <h:inputText class="form-control" value="#{ordenesCompraRepuestoController.nuevaOrden.valorTotal}"/>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="message-text" class="col-form-label">ESTADO <b style="color: red">*</b></label>
+                        <h:selectOneMenu class="form-control" value="#usuarioController.nuevoUsuario.estado}">
+                            <f:selectItem itemLabel="Seleccione un estado" itemValue=""/>
+                            <f:selectItem itemLabel="activo" itemValue="1"/>
+                            <f:selectItem itemLabel="inactivo" itemValue="2"/>
+                        </h:selectOneMenu>
+                    </div>-->
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <a class="btn text-light" style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000" 
+                   href="#{request.contextPath}/app/ventas/ventas_modulo.xhtml">Cancelar
+                </a>&nbsp;
+                <h:commandButton class="btn text-light" style="background-color: #CF7D34; border-bottom-color: #000" 
+                                 value="Registrar" action="#{ordenesCompraRepuestoController.registrar()}"/>
+            </div>
+        </h:form>
+        <br/>
+        <ui:include src="/WEB-INF/includes/modals/ventas/ver_Info_facturas.xhtml"></ui:include>
+    </ui:define>
+
+</ui:composition>
+

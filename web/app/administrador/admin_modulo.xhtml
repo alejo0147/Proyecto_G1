@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/includes/template/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="tittle">Administrador</ui:define>
+    <ui:define name="modulo">Admin</ui:define>
+    <ui:define name="foto_usuario"><img src="#{request.contextPath}/resources/img/user3-128x128.jpg" class="img-circle elevation-2" alt="User Image"/></ui:define>
+    <ui:define name="usuario">Veronica Orozco</ui:define>
+    <ui:define name="menu_main">Administrador</ui:define>
+    <ui:define name="breadcrumbs">
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">
+                <a href="../../index.xhtml">Inicio</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="#">#</a>
+            </li>
+        </ol>
+    </ui:define>
+    <ui:define name="tittle_page">TABLAS DE INFORMACIÓN</ui:define>    
+    <ui:define name="content">
+        <a href="#{request.contextPath}/app/administrador/registrar_usuario.xhtml" class="btn text-light" 
+           style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000 ">
+            <i class="fa fa-plus">
+
+            </i> 
+            Nuevo Usuario
+        </a>
+
+        <br/><br/>
+        <h:form prependId="false"> 
+            <h3 class="text-center"><b style="color: #CF7D34">USUARIOS</b></h3>
+            <p:dataTable value="#{usuarioController.usuarios}" 
+                         rows="5"
+                         paginator="true"
+                         rowsPerPageTemplate="5,10,15"
+                         reflow="true"
+                         var="u">
+
+                <p:column headerText="ID" priority="2">
+                    <h:outputText value="#{u.id}"/>
+                </p:column>
+                <p:column headerText="DOCUMENTO" priority="2">
+                    <h:outputText value="#{u.tipoDocumento}"/>
+                </p:column>
+                <p:column headerText="NOMBRES" priority="2">
+                    <h:outputText value="#{u.nombre1} "/> 
+                    <h:outputText value="#{u.nombre2}"/>
+                </p:column>
+                <p:column headerText="APELLIDOS" priority="2">
+                    <h:outputText value="#{u.apellido1} "/>
+                    <h:outputText value="#{u.apellido2}"/>
+                </p:column>
+                <p:column headerText="ROL" priority="2">
+                    <h:outputText value="#{u.rol.nombre}"/>
+                </p:column>
+                <p:column headerText="OPCIONES" priority="2">
+                    <h:commandLink class="btn" style="background-color: #CF9D16" a:data-toggle="modal" a:data-target="#verInfoUsuario"
+                                   action="#{usuarioController.seleccionarUsuario(u)}">
+                        <i class="fas fa-eye text-light"></i>
+                        <f:ajax render=":verInfoUsuarioContent" />
+                    </h:commandLink>&nbsp;
+                    <h:commandLink class="btn" style="background-color: #B7A06F"><i class="fas fa-pencil-alt text-light"></i></h:commandLink>&nbsp;
+                    <!--<a class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>-->
+                    <h:commandLink class="btn" style="background-color: #5C4939"><i class="fa fa-lock text-light"></i></h:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/><br/>
+        <a href="#{request.contextPath}/app/administrador/registrar_usuario.xhtml" class="btn text-light" 
+           style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000 ">
+            <i class="fa fa-plus">
+
+            </i> 
+            Nuevo Repuesto
+        </a>
+
+        <br/><br/>
+        <h:form prependId="false"> 
+            <h3 class="text-center"><b style="color: #CF7D34">REPUESTOS</b></h3>
+            <p:dataTable value="#{repuestoController.repuestos}" 
+                         rows="10"
+                         paginator="true"
+                         rowsPerPageTemplate="5,10,15"
+                         reflow="true"
+                         var="rpst">
+
+                <p:column headerText="ID" priority="2">
+                    <h:outputText value="#{rpst.id}"/>
+                </p:column>
+                <p:column headerText="TIPO" priority="2">
+                    <h:outputText value="#{rpst.tipoRepuesto.nombreTipoRepuesto}"/>
+                </p:column>
+                <p:column headerText="FECHA" priority="2">
+                    <!--<f:facet name="header">FECHA</f:facet>-->
+                    <h:outputText value="#{rpst.fechaRegistroRepuesto}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="REPUESTO" priority="2">
+                    <h:outputText value="#{rpst.nombreRepuesto} "/>
+                </p:column>
+                <p:column headerText="MARCA" priority="2">
+                    <h:outputText value="#{rpst.marca} "/>
+                </p:column>
+                <p:column headerText="OPCIONES" priority="2">
+                    <h:commandLink class="btn" style="background-color: #CF9D16" a:data-toggle="modal" a:data-target="#verInfoUsuario"
+                                   action="#{usuarioController.seleccionarUsuario(u)}">
+                        <i class="fas fa-eye text-light"></i>
+                        <f:ajax render=":verInfoUsuarioContent" />
+                    </h:commandLink>&nbsp;
+                    <h:commandLink class="btn" style="background-color: #B7A06F"><i class="fas fa-pencil-alt text-light"></i></h:commandLink>&nbsp;
+                    <!--<a class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>-->
+                    <h:commandLink class="btn" style="background-color: #5C4939"><i class="fa fa-lock text-light"></i></h:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/><br/>
+        <ui:include src="/WEB-INF/includes/modals/admin/usuario/ver_Info_usuario.xhtml"></ui:include>
+    </ui:define>
+
+</ui:composition>
+

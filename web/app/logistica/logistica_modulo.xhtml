@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/includes/template/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="tittle">Logística</ui:define>
+    <ui:define name="modulo">Logística</ui:define>
+    <ui:define name="foto_usuario"><img src="#{request.contextPath}/resources/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/></ui:define>
+    <ui:define name="usuario">#{usuarioController.usuarioSeleccionado.nombre1} </ui:define>
+    <ui:define name="menu_main">Logística</ui:define>
+    <ui:define name="opc_menu1">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pedidos1" aria-expanded="false" aria-controls="pedidos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list"></i> Facturas</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="pedidos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#facturas">Facturas Generales</a>
+                <a class="nav-link text-light" href="#">Facturas Canceladas</a>
+                <a class="nav-link text-light" href="#">Facturas Pendientes</a>
+                <a class="nav-link text-light" href="#">Facturas Anuladas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="opc_menu2">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#despachos1" aria-expanded="false" aria-controls="despachos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list-alt"></i> Solicitudes (SCR)</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="despachos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#solicitudes">Solicitudes Generales</a>
+                <a class="nav-link text-light" href="#pedidosModal">Solicitudes Radicadas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="opc_menu3">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#solicitudes1" aria-expanded="false" aria-controls="solicitudes1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fas fa-plus"></i> Orden de Compra Repuesto (OCR)</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="solicitudes1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#">Ordenes Generales</a>
+                <a class="nav-link text-light" href="#pedidosModal" data-toggle="modal">Generar Orden</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="tittle_page"></ui:define>    
+    <ui:define name="content">
+        <!--<a href="#{request.contextPath}/app/ventas/registrar_orden.xhtml" class="btn text-light" 
+           style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000 ">
+            <i class="fa fa-plus">
+
+            </i> 
+            Nuevo Usuario
+        </a>
+        <br/><br/>-->
+        <!--<ui:include src="/WEB-INF/includes/modals/ventas/ver_Info_facturas.xhtml"></ui:include>-->
+    </ui:define>
+
+</ui:composition>
+

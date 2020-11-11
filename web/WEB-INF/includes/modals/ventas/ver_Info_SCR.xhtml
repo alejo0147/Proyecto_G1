@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- modal mostrar usuarios-->
+    <div class="modal fade" id="verInfoFactura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <h:panelGroup id="verInfoFacturaContent" layout="block">
+                    <div class="modal-header" style="background-color: #CB7C31">
+                        <a class=" modal-title navbar-brand js-scroll-trigger" href="https://www.facebook.com/Accesoriosyrepuestosparamotos/">
+                            <span > <img src="#{request.contextPath}/resources/img/logo killyn moto - foot.jpg" alt="Logo KILLYN MOTOS" class="rounded-pill" target="_blank"/></span></a>
+                            <h5 class="modal-title text-light" id="exampleModalLabel">Factura - #{facturaController.facturaSeleccionada.id}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="text-light" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">ID</label>
+                            <span class="form-control">#{facturaController.facturaSeleccionada.id}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">FECHA</label>
+                            <span class="form-control">#{facturaController.facturaSeleccionada.fecha}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">PEDIDO</label>
+                            <span class="form-control">#{facturaController.facturaSeleccionada.pedido}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">DOCUMENTO</label>
+                            <span class="form-control">#{facturaController.facturaSeleccionada.cliente.id}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Nombres</label>
+                            <span class="form-control">#{facturaController.facturaSeleccionada.cliente.usuario.nombre1} #{facturaController.facturaSeleccionada.cliente.usuario.apellido1}</span>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">PAGO</label>
+                            <span class="form-control">#{facturaController.facturaSeleccionada.tipoPago.nombreTipoPago}</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                    </div>
+                </h:panelGroup>
+            </div>
+        </div>
+    </div>
+</ui:composition>
+

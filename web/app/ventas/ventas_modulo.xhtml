@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/includes/template/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="tittle">Ventas</ui:define>
+    <ui:define name="modulo">Ventas</ui:define>
+    <ui:define name="foto_usuario"><img src="#{request.contextPath}/resources/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/></ui:define>
+    <ui:define name="usuario">#{usuarioController.usuarioSeleccionado.nombre1} </ui:define>
+    <ui:define name="menu_main">Ventas</ui:define>
+    <ui:define name="opc_menu1">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pedidos1" aria-expanded="false" aria-controls="pedidos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list"></i> Facturas</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="pedidos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#facturas">Facturas Generales</a>
+                <a class="nav-link text-light" href="#">Facturas Canceladas</a>
+                <a class="nav-link text-light" href="#">Facturas Pendientes</a>
+                <a class="nav-link text-light" href="#">Facturas Anuladas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="opc_menu2">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#despachos1" aria-expanded="false" aria-controls="despachos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list-alt"></i> Solicitudes (SCR)</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="despachos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#solicitudes">Solicitudes Generales</a>
+                <a class="nav-link text-light" href="#pedidosModal">Solicitudes Radicadas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="opc_menu3">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#solicitudes1" aria-expanded="false" aria-controls="solicitudes1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fas fa-plus"></i> Orden de Compra Repuesto (OCR)</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="solicitudes1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#">Ordenes Generales</a>
+                <a class="nav-link text-light" href="#{request.contextPath}/app/ventas/registrar_orden.xhtml">Generar Orden</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="tittle_page"></ui:define>    
+    <ui:define name="content">
+
+        <h:form prependId="false">
+            <h3 class="text-center"><b style="color: #CF7D34" id="facturas">FACTURAS</b></h3>
+            <p:dataTable value="#{facturasController.facturas}" 
+                         rowsPerPageTemplate="5,10,15"
+                         reflow="true" rows="5" paginator="true"
+                         var="fct">
+                <p:column headerText="ID" priority="2">
+                    <!--<f:facet name="header">ID</f:facet>-->
+                    <h:outputText value="#{fct.id}"/>
+                </p:column>
+                <p:column headerText="FECHA" priority="2">
+                    <!--<f:facet name="header">FECHA</f:facet>-->
+                    <h:outputText value="#{fct.fecha}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="PEDIDO" priority="2">
+                    <!--<f:facet name="header" >PEDIDO</f:facet>-->
+                    <h:outputText value="#{fct.pedido} "/> 
+                </p:column><!--
+                <p:column headerText="DOCUMENTO" priority="2">
+                    <f:facet name="header">DOCUMENTO</f:facet>
+                    <h:outputText value="#fct.cliente.id} "/>
+                </p:column>-->
+                <p:column headerText="CLIENTE" priority="2">
+                    <!--<f:facet name="header">CLIENTE</f:facet>-->
+                    <h:outputText value="#{fct.cliente.usuario.nombre1} #{fct.cliente.usuario.apellido1}"/>
+                </p:column>
+                <p:column headerText="PAGO" priority="2">
+                    <!--<f:facet name="header">PAGO</f:facet>-->
+                    <h:outputText value="#{fct.tipoPago.nombreTipoPago}"/>
+                </p:column>
+                <p:column headerText="VALOR" priority="2">
+                    <!--<f:facet name="header">VALOR</f:facet>-->
+                    <h:outputText value="#{fct.valorTotal}"/>
+                </p:column>
+                <p:column headerText="OPCIONES" priority="2">
+                    <!--<f:facet name="header">OPCIONES</f:facet>-->
+                    <h:commandLink class="btn" style="background-color: #CF9D16" a:title="Ver" a:data-toggle="modal" a:data-target="#verInfoFactura"
+                                   action="#{facturasController.seleccionarFactura(fct)}">
+                        <i class="fas fa-eye text-light"></i>
+                        <f:ajax render=":verInfoFacturaContent"/>
+                    </h:commandLink>&nbsp;
+                    <h:commandLink class="btn" style="background-color: #5C4939" a:title="Cambiar Estado"><i class="fas fa-times text-light"></i></h:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/>
+        <h:form prependId="false">
+            <h3 class="text-center"><b style="color: #CF7D34" id="solicitudes">SOLICITUD COMPRA REPUESTO (SCR)</b></h3>
+            <p:dataTable value="#{solicitudComprarepuestoController.solicitudesCR}" 
+                         rows="5"
+                         paginator="true"
+                         rowsPerPageTemplate="5,10,15"
+                         reflow="true"
+                         var="scr">
+                <p:column headerText="ID" priority="2">
+                    <h:outputText class="text-center" value="#{scr.id}"/>
+                </p:column>
+                <p:column headerText="LOGÍSTICA" priority="2">
+                    <h:outputText value="#{scr.logistica.usuario.nombre1} #{scr.logistica.usuario.apellido1}"/> 
+                </p:column>
+                <p:column headerText="PEDIDO" priority="2">
+                    <h:outputText value="#{scr.pedido} "/>
+                </p:column>
+                <p:column headerText="FECHA" priority="2">
+                    <h:outputText value="#{scr.fecha}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="CANTIDAD" priority="2">
+                    <h:outputText value="#{scr.cantidad}"/>
+                </p:column>
+                <p:column headerText="OPCIONES" priority="2">
+                    <h:commandLink class="btn " style="background-color: #CF9D16" a:data-toggle="modal" a:data-target="#verInfoFactura"
+                                   action="#{facturasController.seleccionarFactura(fct)}">
+                        <i class="fas fa-eye text-light"></i>
+                        <f:ajax render=":verInfoFacturaContent"/>
+                    </h:commandLink>&nbsp;
+                    <h:commandLink class="btn " style="background-color: #5C4939"><i class="fas fa-times text-light"></i></h:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/>
+        <a href="#{request.contextPath}/app/ventas/registrar_orden.xhtml" class="btn text-light" 
+           style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000 ">
+            <i class="fa fa-plus">
+
+            </i> 
+            Nueva Orden (OCR)
+        </a>
+        <br/><br/>
+        <h:form prependId="false">
+            <h3 class="text-center"><b style="color: #CF7D34" id="solicitudes">ORDENES DE COMPRA DE REPUESTOS (OCR)</b></h3>
+            <p:dataTable value="#{ordenesCompraRepuestoController.ordenesCR}" 
+                         rows="5"
+                         paginator="true"
+                         rowsPerPageTemplate="5,10,15"
+                         reflow="true"
+                         var="ocr">
+                <p:column headerText="ID" priority="2">
+                    <h:outputText class="text-center" value="#{ocr.id}"/>
+                </p:column>
+                <p:column headerText="VENDEDOR" priority="2">
+                    <h:outputText value="#{ocr.vendedor.usuario.nombre1} #{ocr.vendedor.usuario.apellido1}"/> 
+                </p:column>
+                <p:column headerText="PEDIDO" priority="2">
+                    <h:outputText value="#{ocr.solicitudCompraRepuesto} "/>
+                </p:column>
+                <p:column headerText="FECHA" priority="2">
+                    <h:outputText value="#{ocr.fecha}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="CANTIDAD" priority="2">
+                    <h:outputText value="#{ocr.cantidad}"/>
+                </p:column>
+                <p:column headerText="VALOR/U" priority="2">
+                    <h:outputText value="#{ocr.valorUnitario}"/>
+                </p:column>
+                <p:column headerText="VALOR TOTAL" priority="2">
+                    <h:outputText value="#{ocr.valorTotal}"/>
+                </p:column>
+                <p:column headerText="OPCIONES" priority="2">
+                    <h:commandLink class="btn " style="background-color: #CF9D16" a:data-toggle="modal" a:data-target="#verInfoFactura"
+                                   action="#{facturasController.seleccionarFactura(fct)}">
+                        <i class="fas fa-eye text-light"></i>
+                        <f:ajax render=":verInfoFacturaContent"/>
+                    </h:commandLink>&nbsp;
+                    <h:commandLink class="btn " style="background-color: #5C4939"><i class="fas fa-times text-light"></i></h:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/>
+        <ui:include src="/WEB-INF/includes/modals/ventas/ver_Info_facturas.xhtml"></ui:include>
+    </ui:define>
+
+</ui:composition>
+

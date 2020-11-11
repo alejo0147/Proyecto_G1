@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!-- modal mostrar usuarios-->
+    <div class="modal fade" id="verInfoUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <h:panelGroup id="verInfoUsuarioContent" layout="block">
+                    <div class="modal-header" style="background-color: #CB7C31">
+                        <a class=" modal-title navbar-brand js-scroll-trigger" 
+                           href="https://www.facebook.com/Accesoriosyrepuestosparamotos/">
+                            <span > 
+                                <img src="#{request.contextPath}/resources/img/logo killyn moto - foot.jpg" 
+                                         alt="Logo KILLYN MOTOS" class="rounded-pill" 
+                                         target="_blank"/>
+                            </span>
+                        </a>
+                        <h5 class="modal-title text-light" id="exampleModalLabel">Usuario - #{usuarioController.usuarioSeleccionado.nombre1} #{usuarioController.usuarioSeleccionado.apellido1}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="text-light" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">ID</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.id}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Nombres</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.nombre1} #{usuarioController.usuarioSeleccionado.nombre2}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Dirección</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.direccion}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Correo</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.correo}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Tipo documento</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.tipoDocumento}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Apellidos</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.apellido1} #{usuarioController.usuarioSeleccionado.apellido2}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Rol</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.rol.nombre}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Estado</label>
+                                    <span class="form-control">#{usuarioController.usuarioSeleccionado.estado}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn text-light" data-dismiss="modal"  style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000 ">Cerrar</button>
+                    </div>
+                </h:panelGroup>
+            </div>
+        </div>
+    </div>
+</ui:composition>
+

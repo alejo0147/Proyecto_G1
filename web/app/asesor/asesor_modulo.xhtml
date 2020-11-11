@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/includes/template/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="tittle">Asesor</ui:define>
+    <ui:define name="modulo">Asesor</ui:define>
+    <ui:define name="foto_usuario"><img src="#{request.contextPath}/resources/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"/></ui:define>
+    <ui:define name="usuario">#{usuarioController.usuarioSeleccionado.nombre1} </ui:define>
+    <ui:define name="menu_main">Asesor</ui:define>
+    <ui:define name="opc_menu1">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pedidos1" aria-expanded="false" aria-controls="pedidos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list"></i> PQRS</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="pedidos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#facturas">Facturas Generales</a>
+                <a class="nav-link text-light" href="#">Facturas Canceladas</a>
+                <a class="nav-link text-light" href="#">Facturas Pendientes</a>
+                <a class="nav-link text-light" href="#">Facturas Anuladas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="opc_menu2">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#despachos1" aria-expanded="false" aria-controls="despachos1">
+            <div class="sb-nav-link-icon font-weight-bold text-light"><i class="fa fa-list-alt"></i> USUARIOS</div>
+            <div class="sb-sidenav-collapse-arrow" style="color: #CF7D34"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="despachos1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+                <a class="nav-link text-light" href="#solicitudes">Solicitudes Generales</a>
+                <a class="nav-link text-light" href="#pedidosModal">Solicitudes Radicadas</a>
+            </nav>
+        </div>
+    </ui:define>
+    <ui:define name="tittle_page"></ui:define>    
+    <ui:define name="content">
+        <a href="#{request.contextPath}/app/ventas/registrar_orden.xhtml" class="btn text-light" 
+           style="background-color: rgba(92,73,57,0.7); border-bottom-color: #000 ">
+            <i class="fa fa-plus">
+
+            </i> 
+            Nuevo Usuario
+        </a>
+        <br/><br/>
+        <h:form prependId="false"> 
+            <h3 class="text-center"><b style="color: #CF7D34">USUARIOS</b></h3>
+            <p:dataTable value="#{usuarioController.usuarios}" 
+                         rows="10"
+                         paginator="true"
+                         rowsPerPageTemplate="5,10,15"
+                         reflow="true"
+                         var="u">
+
+                <p:column headerText="ID" priority="2">
+                    <h:outputText value="#{u.id}"/>
+                </p:column>
+                <p:column headerText="DOCUMENTO" priority="2">
+                    <h:outputText value="#{u.tipoDocumento}"/>
+                </p:column>
+                <p:column headerText="NOMBRES" priority="2">
+                    <h:outputText value="#{u.nombre1} "/> 
+                    <h:outputText value="#{u.nombre2}"/>
+                </p:column>
+                <p:column headerText="APELLIDOS" priority="2">
+                    <h:outputText value="#{u.apellido1} "/>
+                    <h:outputText value="#{u.apellido2}"/>
+                </p:column>
+                <p:column headerText="ROL" priority="2">
+                    <h:outputText value="#{u.rol.nombre}"/>
+                </p:column>
+                <p:column headerText="OPCIONES" priority="2">
+                    <h:commandLink class="btn btn-primary" a:data-toggle="modal" a:data-target="#verInfoUsuario"
+                                   action="#{usuarioController.seleccionarUsuario(u)}">
+                        <i class="fas fa-eye"></i>
+                        <f:ajax render=":verInfoUsuarioContent" />
+                    </h:commandLink>
+                    <a class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                    <!--<a class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>-->
+                    <a class="btn btn-info"><i class="fa fa-lock"></i></a>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/><br/>
+        <!--<ui:include src="/WEB-INF/includes/modals/ventas/ver_Info_facturas.xhtml"></ui:include>-->
+    </ui:define>
+
+</ui:composition>
+
