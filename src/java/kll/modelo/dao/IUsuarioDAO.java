@@ -15,4 +15,5 @@ import kll.modelo.entities.Usuario;
 @Local
 public interface IUsuarioDAO extends DAO<Usuario>{
     
+    Usuario findByEmailAndPassword(String email, String password);
 }
